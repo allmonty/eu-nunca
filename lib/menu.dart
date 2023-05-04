@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:html';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:eu_nunca/game.dart';
@@ -11,50 +16,75 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-  void openGamePage(context) {
+  Future<dynamic>? data;
+
+  @override
+  void initState() {
+    super.initState();
+    data = loadGameData();
+  }
+
+  void openGamePage(context, List<dynamic> questions) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const Game()),
+      MaterialPageRoute(builder: (context) {
+        return Game(
+          questions: questions,
+        );
+      }),
     );
+  }
+
+  Future<void> loadGameData() async {
+    const String path = 'assets/data/game_data_pt.json';
+    final String response = await rootBundle.loadString(path);
+    return await json.decode(response);
   }
 
   @override
   Widget build(BuildContext context) {
     String menuLightText = AppLocalizations.of(context)!.menuCategoryLight;
-    String menuMiddleText = AppLocalizations.of(context)!.menuCategoryMiddle;
+    String menuMediumText = AppLocalizations.of(context)!.menuCategoryMedium;
     String menuHeavyText = AppLocalizations.of(context)!.menuCategoryHeavy;
 
-    return Scaffold(
-      body: Row(
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
+    return FutureBuilder(
+        future: data,
+        builder: (context, snapshot) {
+          return Scaffold(
+            body: Row(
               children: [
-                MenuButton(
-                  text: menuLightText,
-                  onPressed: () => openGamePage(context),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      MenuButton(
+                        text: menuLightText,
+                        onPressed: () =>
+                            openGamePage(context, snapshot.data["light"]),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      MenuButton(
+                        text: menuMediumText,
+                        onPressed: () =>
+                            openGamePage(context, snapshot.data["medium"]),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      MenuButton(
+                        text: menuHeavyText,
+                        onPressed: () =>
+                            openGamePage(context, snapshot.data["heavy"]),
+                      )
+                    ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                MenuButton(
-                  text: menuMiddleText,
-                  onPressed: () => openGamePage(context),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                MenuButton(
-                  text: menuHeavyText,
-                  onPressed: () => openGamePage(context),
-                )
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
 }
 
