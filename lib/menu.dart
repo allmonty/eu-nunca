@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+import 'package:eu_nunca/game.dart';
+
+class Menu extends StatefulWidget {
+  const Menu({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Menu> createState() => _MenuState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MenuState extends State<Menu> {
+  void openGamePage(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Game()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     String menuLightText = AppLocalizations.of(context)!.menuCategoryLight;
@@ -23,22 +32,22 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 MenuButton(
-                  text: Text(menuLightText),
-                  onPressed: () {},
+                  text: menuLightText,
+                  onPressed: () => openGamePage(context),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 MenuButton(
-                  text: Text(menuMiddleText),
-                  onPressed: () {},
+                  text: menuMiddleText,
+                  onPressed: () => openGamePage(context),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 MenuButton(
-                  text: Text(menuHeavyText),
-                  onPressed: () {},
+                  text: menuHeavyText,
+                  onPressed: () => openGamePage(context),
                 )
               ],
             ),
@@ -50,9 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class MenuButton extends StatelessWidget {
-  const MenuButton({super.key, this.text, this.onPressed});
+  const MenuButton({super.key, this.text = "", this.onPressed});
 
-  final Text? text;
+  final String text;
   final Function()? onPressed;
 
   @override
@@ -64,7 +73,7 @@ class MenuButton extends StatelessWidget {
           minimumSize: const Size.fromHeight(50),
         ),
         onPressed: onPressed,
-        child: text,
+        child: Text(text),
       ),
     );
   }

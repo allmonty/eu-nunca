@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // This widget is the root of your application.
     return MaterialApp(
       title: 'Flutter Demo',
       localizationsDelegates: const [
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const MyHomePage(),
+      home: const Menu(),
     );
   }
 }
