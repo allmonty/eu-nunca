@@ -11,10 +11,28 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
+  int currentQuestion = 0;
+
   @override
   Widget build(BuildContext context) {
     print(widget.questions);
     print(widget.questions.length);
+
+    void nextQuestion() {
+      if (currentQuestion < widget.questions.length - 1) {
+        setState(() {
+          currentQuestion++;
+        });
+      }
+    }
+
+    void previousQuestion() {
+      if (currentQuestion > 0) {
+        setState(() {
+          currentQuestion--;
+        });
+      }
+    }
 
     return Scaffold(
       body: Row(
@@ -23,10 +41,18 @@ class _GameState extends State<Game> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                const Text("Teste"),
+                Text(widget.questions[currentQuestion]),
                 ElevatedButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text("aperta"),
+                  child: const Text("Menu"),
+                ),
+                ElevatedButton(
+                  onPressed: previousQuestion,
+                  child: const Text("Anterior"),
+                ),
+                ElevatedButton(
+                  onPressed: nextQuestion,
+                  child: const Text("Próxima"),
                 ),
               ],
             ),
