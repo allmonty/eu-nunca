@@ -1,5 +1,5 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Game extends StatefulWidget {
   const Game({super.key, required this.questions});
@@ -35,29 +35,55 @@ class _GameState extends State<Game> {
     }
 
     return Scaffold(
-      body: Row(
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(widget.questions[currentQuestion]),
-                ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("Menu"),
-                ),
-                ElevatedButton(
-                  onPressed: previousQuestion,
-                  child: const Text("Anterior"),
-                ),
-                ElevatedButton(
-                  onPressed: nextQuestion,
-                  child: const Text("Próxima"),
-                ),
-              ],
-            ),
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color.fromARGB(255, 90, 62, 121),
+              Color.fromARGB(255, 10, 3, 41),
+            ],
           ),
-        ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  SizedBox(
+                    height: 200.0,
+                    child: Swiper(
+                      itemBuilder: (BuildContext context, int index) {
+                        return Card(
+                          color: Colors.white,
+                          child: Text(widget.questions[index]),
+                        );
+                      },
+                      itemCount: widget.questions.length,
+                      itemWidth: 300.0,
+                      itemHeight: 300.0,
+                      layout: SwiperLayout.TINDER,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("Menu"),
+                  ),
+                  ElevatedButton(
+                    onPressed: previousQuestion,
+                    child: const Text("Anterior"),
+                  ),
+                  ElevatedButton(
+                    onPressed: nextQuestion,
+                    child: const Text("Próxima"),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
