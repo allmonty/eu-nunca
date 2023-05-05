@@ -43,6 +43,7 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
+    String menuTitle = AppLocalizations.of(context)!.menuTitle;
     String menuLightText = AppLocalizations.of(context)!.menuCategoryLight;
     String menuMediumText = AppLocalizations.of(context)!.menuCategoryMedium;
     String menuHeavyText = AppLocalizations.of(context)!.menuCategoryHeavy;
@@ -67,7 +68,7 @@ class _MenuState extends State<Menu> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   const Flexible(
-                    flex: 1,
+                    flex: 2,
                     child: SizedBox(width: 10),
                   ),
                   Flexible(
@@ -76,6 +77,17 @@ class _MenuState extends State<Menu> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: [
+                        Text(
+                          menuTitle,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 64,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         MenuButton(
                           text: menuLightText,
                           onPressed: () =>
@@ -101,7 +113,7 @@ class _MenuState extends State<Menu> {
                     ),
                   ),
                   const Flexible(
-                    flex: 1,
+                    flex: 2,
                     child: SizedBox(width: 10),
                   ),
                 ],
