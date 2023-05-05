@@ -51,37 +51,61 @@ class _MenuState extends State<Menu> {
         future: data,
         builder: (context, snapshot) {
           return Scaffold(
-            body: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      MenuButton(
-                        text: menuLightText,
-                        onPressed: () =>
-                            openGamePage(context, snapshot.data["light"]),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      MenuButton(
-                        text: menuMediumText,
-                        onPressed: () =>
-                            openGamePage(context, snapshot.data["medium"]),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      MenuButton(
-                        text: menuHeavyText,
-                        onPressed: () =>
-                            openGamePage(context, snapshot.data["heavy"]),
-                      )
-                    ],
-                  ),
+            body: DecoratedBox(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Color.fromARGB(255, 90, 62, 121),
+                    Color.fromARGB(255, 10, 3, 41),
+                  ],
                 ),
-              ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  const Flexible(
+                    flex: 1,
+                    child: SizedBox(width: 10),
+                  ),
+                  Flexible(
+                    flex: 3,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        MenuButton(
+                          text: menuLightText,
+                          onPressed: () =>
+                              openGamePage(context, snapshot.data["light"]),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        MenuButton(
+                          text: menuMediumText,
+                          onPressed: () =>
+                              openGamePage(context, snapshot.data["medium"]),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        MenuButton(
+                          text: menuHeavyText,
+                          onPressed: () =>
+                              openGamePage(context, snapshot.data["heavy"]),
+                        )
+                      ],
+                    ),
+                  ),
+                  const Flexible(
+                    flex: 1,
+                    child: SizedBox(width: 10),
+                  ),
+                ],
+              ),
             ),
           );
         });
@@ -96,11 +120,18 @@ class MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       flex: 1,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          minimumSize: const Size.fromHeight(50),
+        style: ButtonStyle(
+          backgroundColor: const MaterialStatePropertyAll(
+              Color.fromARGB(255, 252, 167, 165)),
+          minimumSize: const MaterialStatePropertyAll(Size.fromHeight(50)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+          ),
         ),
         onPressed: onPressed,
         child: Text(text),
