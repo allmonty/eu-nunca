@@ -53,20 +53,29 @@ class _GameState extends State<Game> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   SizedBox(
-                    height: 200.0,
-                    child: Swiper(
-                      itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          color: Colors.white,
-                          child: Text(widget.questions[index]),
-                        );
-                      },
-                      itemCount: widget.questions.length,
-                      itemWidth: 300.0,
-                      itemHeight: 300.0,
-                      layout: SwiperLayout.TINDER,
-                    ),
-                  ),
+                      height: 200.0,
+                      child: Swiper(
+                        layout: SwiperLayout.CUSTOM,
+                        customLayoutOption:
+                            CustomLayoutOption(startIndex: -1, stateCount: 3)
+                              ..addRotate([-45.0 / 180, 0.0, 45.0 / 180])
+                              ..addTranslate([
+                                const Offset(-370.0, -40.0),
+                                const Offset(0.0, 0.0),
+                                const Offset(370.0, -40.0)
+                              ]),
+                        itemWidth: 300.0,
+                        itemHeight: 200.0,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            color: Colors.grey,
+                            child: Center(
+                              child: Text(widget.questions[index]),
+                            ),
+                          );
+                        },
+                        itemCount: widget.questions.length,
+                      )),
                   ElevatedButton(
                     onPressed: () => Navigator.pop(context),
                     child: const Text("Menu"),
