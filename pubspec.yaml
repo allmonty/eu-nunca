@@ -39,6 +39,7 @@ dependencies:
     sdk: flutter
   intl: any
   card_swiper : ^2.0.1
+  appinio_swiper: ^2.0.1
 
 dev_dependencies:
   flutter_test:

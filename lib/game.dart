@@ -1,4 +1,4 @@
-import 'package:card_swiper/card_swiper.dart';
+import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/material.dart';
 
 class Game extends StatefulWidget {
@@ -13,27 +13,28 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   int currentQuestion = 0;
 
+  AppinioSwiperController controller = AppinioSwiperController();
+
+  void nextQuestion() {
+    if (currentQuestion < widget.questions.length - 1) {
+      setState(() {
+        currentQuestion++;
+      });
+      controller.swipeRight();
+    }
+  }
+
+  void previousQuestion() {
+    if (currentQuestion > 0) {
+      setState(() {
+        currentQuestion--;
+      });
+      controller.unswipe();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(widget.questions);
-    print(widget.questions.length);
-
-    void nextQuestion() {
-      if (currentQuestion < widget.questions.length - 1) {
-        setState(() {
-          currentQuestion++;
-        });
-      }
-    }
-
-    void previousQuestion() {
-      if (currentQuestion > 0) {
-        setState(() {
-          currentQuestion--;
-        });
-      }
-    }
-
     return Scaffold(
       body: DecoratedBox(
         decoration: const BoxDecoration(
@@ -54,19 +55,10 @@ class _GameState extends State<Game> {
                 children: [
                   SizedBox(
                       height: 200.0,
-                      child: Swiper(
-                        layout: SwiperLayout.CUSTOM,
-                        customLayoutOption:
-                            CustomLayoutOption(startIndex: -1, stateCount: 3)
-                              ..addRotate([-45.0 / 180, 0.0, 45.0 / 180])
-                              ..addTranslate([
-                                const Offset(-370.0, -40.0),
-                                const Offset(0.0, 0.0),
-                                const Offset(370.0, -40.0)
-                              ]),
-                        itemWidth: 300.0,
-                        itemHeight: 200.0,
-                        itemBuilder: (context, index) {
+                      child: AppinioSwiper(
+                        controller: controller,
+                        cardsCount: widget.questions.length,
+                        cardsBuilder: (context, index) {
                           return Container(
                             color: Colors.grey,
                             child: Center(
@@ -74,20 +66,25 @@ class _GameState extends State<Game> {
                             ),
                           );
                         },
-                        itemCount: widget.questions.length,
                       )),
-                  ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("Menu"),
-                  ),
-                  ElevatedButton(
-                    onPressed: previousQuestion,
-                    child: const Text("Anterior"),
-                  ),
-                  ElevatedButton(
-                    onPressed: nextQuestion,
-                    child: const Text("Próxima"),
-                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Menu"),
+                      ),
+                      ElevatedButton(
+                        onPressed: previousQuestion,
+                        child: const Text("Anterior"),
+                      ),
+                      ElevatedButton(
+                        onPressed: nextQuestion,
+                        child: const Text("Próxima"),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
