@@ -41,79 +41,74 @@ class _GameState extends State<Game> {
             ],
           ),
         ),
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(
-                      width: 300,
-                      height: 500,
-                      child: AppinioSwiper(
-                        controller: controller,
-                        cardsCount: widget.questions.length,
-                        allowUnswipe: true,
-                        unlimitedUnswipe: true,
-                        cardsBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: colors[index % colors.length],
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
+            SizedBox(
+                width: 300,
+                height: 500,
+                child: AppinioSwiper(
+                  controller: controller,
+                  cardsCount: widget.questions.length,
+                  allowUnswipe: true,
+                  unlimitedUnswipe: true,
+                  cardsBuilder: (context, index) {
+                    return Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: colors[index % colors.length],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const SizedBox(),
+                          AutoSizeText(
+                            widget.questions[index],
+                            minFontSize: 24,
+                            maxFontSize: 96,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const SizedBox(),
-                                AutoSizeText(
-                                  widget.questions[index],
-                                  minFontSize: 24,
-                                  maxFontSize: 96,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                AutoSizeText(
-                                  "${index + 1}/${widget.questions.length}",
-                                  minFontSize: 14,
-                                  maxFontSize: 24,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                          ),
+                          AutoSizeText(
+                            "${index + 1}/${widget.questions.length}",
+                            minFontSize: 14,
+                            maxFontSize: 24,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
                             ),
-                          );
-                        },
-                      )),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Button(
-                        onPressed: () => Navigator.pop(context),
-                        text: "Menu",
+                          ),
+                        ],
                       ),
-                      Button(
-                        onPressed: controller.unswipe,
-                        text: "Anterior",
-                      ),
-                      Button(
-                        onPressed: controller.swipeRight,
-                        text: "Próxima",
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                    );
+                  },
+                )),
+            const SizedBox(
+              height: 20,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Button(
+                  onPressed: () => Navigator.pop(context),
+                  text: "Menu",
+                ),
+                Button(
+                  onPressed: controller.unswipe,
+                  text: "Anterior",
+                ),
+                Button(
+                  onPressed: controller.swipeRight,
+                  text: "Próxima",
+                ),
+              ],
+            )
           ],
         ),
       ),
