@@ -1,4 +1,5 @@
 import 'package:appinio_swiper/appinio_swiper.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class Game extends StatefulWidget {
@@ -46,7 +47,8 @@ class _GameState extends State<Game> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   SizedBox(
-                      height: 200.0,
+                      width: 300,
+                      height: 500,
                       child: AppinioSwiper(
                         controller: controller,
                         cardsCount: widget.questions.length,
@@ -54,13 +56,29 @@ class _GameState extends State<Game> {
                         unlimitedUnswipe: true,
                         cardsBuilder: (context, index) {
                           return Container(
-                            color: colors[index % colors.length],
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: colors[index % colors.length],
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                            ),
                             child: Center(
-                              child: Text(widget.questions[index]),
+                              child: AutoSizeText(
+                                widget.questions[index],
+                                minFontSize: 24,
+                                maxFontSize: 96,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           );
                         },
                       )),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -41,7 +42,8 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    String menuTitle = AppLocalizations.of(context)!.menuTitle;
+    String menuTitle1 = AppLocalizations.of(context)!.menuTitle1;
+    String menuTitle2 = AppLocalizations.of(context)!.menuTitle2;
     String menuLightText = AppLocalizations.of(context)!.menuCategoryLight;
     String menuMediumText = AppLocalizations.of(context)!.menuCategoryMedium;
     String menuHeavyText = AppLocalizations.of(context)!.menuCategoryHeavy;
@@ -75,12 +77,22 @@ class _MenuState extends State<Menu> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text(
-                          menuTitle,
+                        AutoSizeText(
+                          menuTitle1,
+                          minFontSize: 24,
+                          maxFontSize: 96,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 64,
+                          ),
+                        ),
+                        AutoSizeText(
+                          menuTitle2,
+                          minFontSize: 24,
+                          maxFontSize: 96,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(
@@ -88,24 +100,30 @@ class _MenuState extends State<Menu> {
                         ),
                         MenuButton(
                           text: menuLightText,
-                          onPressed: () =>
-                              openGamePage(context, snapshot.data["light"]),
+                          onPressed: () => openGamePage(
+                            context,
+                            snapshot.data["light"],
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         MenuButton(
                           text: menuMediumText,
-                          onPressed: () =>
-                              openGamePage(context, snapshot.data["medium"]),
+                          onPressed: () => openGamePage(
+                            context,
+                            snapshot.data["medium"],
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         MenuButton(
                           text: menuHeavyText,
-                          onPressed: () =>
-                              openGamePage(context, snapshot.data["heavy"]),
+                          onPressed: () => openGamePage(
+                            context,
+                            snapshot.data["heavy"],
+                          ),
                         )
                       ],
                     ),

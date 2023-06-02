@@ -1,5 +1,6 @@
 {
-    "menuTitle": "Never Have I Ever",
+    "menuTitle1": "Never Have",
+    "menuTitle2": "I Ever",
     "menuCategoryLight" : "Light",
     "menuCategoryMedium" : "Medium",
     "menuCategoryHeavy" : "Heavy"

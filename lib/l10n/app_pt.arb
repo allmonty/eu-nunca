@@ -1,5 +1,6 @@
 {
-  "menuTitle": "Eu Nunca",
+  "menuTitle1": "Eu",
+  "menuTitle2": "Nunca",
   "menuCategoryLight" : "Leves",
   "menuCategoryMedium" : "Médias",
   "menuCategoryHeavy" : "Pesadas"
