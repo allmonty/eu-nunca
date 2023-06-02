@@ -76,12 +76,11 @@ class _MenuState extends State<Menu> {
                     flex: 3,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
                       children: [
                         AutoSizeText(
                           menuTitle1,
                           minFontSize: 24,
-                          maxFontSize: 96,
+                          maxLines: 1,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -90,7 +89,7 @@ class _MenuState extends State<Menu> {
                         AutoSizeText(
                           menuTitle2,
                           minFontSize: 24,
-                          maxFontSize: 96,
+                          maxLines: 1,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

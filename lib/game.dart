@@ -94,14 +94,21 @@ class _GameState extends State<Game> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Button(
                   onPressed: () => Navigator.pop(context),
                   text: "Menu",
                 ),
+                const SizedBox(
+                  width: 10,
+                ),
                 Button(
                   onPressed: controller.unswipe,
                   text: "Anterior",
+                ),
+                const SizedBox(
+                  width: 10,
                 ),
                 Button(
                   onPressed: controller.swipeRight,
