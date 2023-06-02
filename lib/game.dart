@@ -62,16 +62,29 @@ class _GameState extends State<Game> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20)),
                             ),
-                            child: Center(
-                              child: AutoSizeText(
-                                widget.questions[index],
-                                minFontSize: 24,
-                                maxFontSize: 96,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const SizedBox(),
+                                AutoSizeText(
+                                  widget.questions[index],
+                                  minFontSize: 24,
+                                  maxFontSize: 96,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
+                                AutoSizeText(
+                                  "${index + 1}/${widget.questions.length}",
+                                  minFontSize: 14,
+                                  maxFontSize: 24,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           );
                         },
