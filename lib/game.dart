@@ -1,5 +1,6 @@
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:eu_nunca/button.dart';
 import 'package:flutter/material.dart';
 
 class Game extends StatefulWidget {
@@ -96,17 +97,17 @@ class _GameState extends State<Game> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ElevatedButton(
+                      Button(
                         onPressed: () => Navigator.pop(context),
-                        child: const Text("Menu"),
+                        text: "Menu",
                       ),
-                      ElevatedButton(
+                      Button(
                         onPressed: controller.unswipe,
-                        child: const Text("Anterior"),
+                        text: "Anterior",
                       ),
-                      ElevatedButton(
+                      Button(
                         onPressed: controller.swipeRight,
-                        child: const Text("Próxima"),
+                        text: "Próxima",
                       ),
                     ],
                   )

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:eu_nunca/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -98,7 +99,7 @@ class _MenuState extends State<Menu> {
                         const SizedBox(
                           height: 20,
                         ),
-                        MenuButton(
+                        Button(
                           text: menuLightText,
                           onPressed: () => openGamePage(
                             context,
@@ -108,7 +109,7 @@ class _MenuState extends State<Menu> {
                         const SizedBox(
                           height: 10,
                         ),
-                        MenuButton(
+                        Button(
                           text: menuMediumText,
                           onPressed: () => openGamePage(
                             context,
@@ -118,7 +119,7 @@ class _MenuState extends State<Menu> {
                         const SizedBox(
                           height: 10,
                         ),
-                        MenuButton(
+                        Button(
                           text: menuHeavyText,
                           onPressed: () => openGamePage(
                             context,
@@ -137,33 +138,5 @@ class _MenuState extends State<Menu> {
             ),
           );
         });
-  }
-}
-
-class MenuButton extends StatelessWidget {
-  const MenuButton({super.key, this.text = "", this.onPressed});
-
-  final String text;
-  final Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      flex: 1,
-      child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor: const MaterialStatePropertyAll(
-              Color.fromARGB(255, 252, 167, 165)),
-          minimumSize: const MaterialStatePropertyAll(Size.fromHeight(50)),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-          ),
-        ),
-        onPressed: onPressed,
-        child: Text(text),
-      ),
-    );
   }
 }
