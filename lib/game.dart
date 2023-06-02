@@ -13,25 +13,17 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   int currentQuestion = 0;
 
+  List colors = const [
+    Color.fromARGB(255, 252, 167, 165),
+    Color.fromRGBO(252, 243, 165, 1),
+    Color.fromARGB(255, 185, 252, 165),
+    Color.fromARGB(255, 165, 246, 252),
+    Color.fromARGB(255, 252, 165, 248),
+    Color.fromARGB(255, 252, 165, 165),
+    Color.fromARGB(255, 165, 178, 252),
+  ];
+
   AppinioSwiperController controller = AppinioSwiperController();
-
-  void nextQuestion() {
-    if (currentQuestion < widget.questions.length - 1) {
-      setState(() {
-        currentQuestion++;
-      });
-      controller.swipeRight();
-    }
-  }
-
-  void previousQuestion() {
-    if (currentQuestion > 0) {
-      setState(() {
-        currentQuestion--;
-      });
-      controller.unswipe();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +50,11 @@ class _GameState extends State<Game> {
                       child: AppinioSwiper(
                         controller: controller,
                         cardsCount: widget.questions.length,
+                        allowUnswipe: true,
+                        unlimitedUnswipe: true,
                         cardsBuilder: (context, index) {
                           return Container(
-                            color: Colors.grey,
+                            color: colors[index % colors.length],
                             child: Center(
                               child: Text(widget.questions[index]),
                             ),
@@ -76,11 +70,11 @@ class _GameState extends State<Game> {
                         child: const Text("Menu"),
                       ),
                       ElevatedButton(
-                        onPressed: previousQuestion,
+                        onPressed: controller.unswipe,
                         child: const Text("Anterior"),
                       ),
                       ElevatedButton(
-                        onPressed: nextQuestion,
+                        onPressed: controller.swipeRight,
                         child: const Text("Próxima"),
                       ),
                     ],
