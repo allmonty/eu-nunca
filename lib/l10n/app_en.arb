@@ -3,5 +3,6 @@
     "menuTitle2": "I Ever",
     "menuCategoryLight" : "Light",
     "menuCategoryMedium" : "Medium",
-    "menuCategoryHeavy" : "Heavy"
+    "menuCategoryHeavy" : "Heavy",
+    "gameCardUpperText" : "Never have I ever..."
 }
