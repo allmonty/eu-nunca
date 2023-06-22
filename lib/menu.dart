@@ -24,11 +24,12 @@ class _MenuState extends State<Menu> {
     data = loadGameData();
   }
 
-  void openGamePage(context, List<dynamic> questions) {
+  void openGamePage(context, String gameName, List<dynamic> questions) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
         return Game(
+          gameName: gameName,
           questions: questions,
         );
       }),
@@ -80,8 +81,10 @@ class _MenuState extends State<Menu> {
                         AutoSizeText(
                           menuTitle1,
                           minFontSize: 24,
+                          maxFontSize: 120,
                           maxLines: 1,
                           style: const TextStyle(
+                            fontSize: 120,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -89,8 +92,10 @@ class _MenuState extends State<Menu> {
                         AutoSizeText(
                           menuTitle2,
                           minFontSize: 24,
+                          maxFontSize: 120,
                           maxLines: 1,
                           style: const TextStyle(
+                            fontSize: 120,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -102,6 +107,7 @@ class _MenuState extends State<Menu> {
                           child: Text(menuLightText),
                           onPressed: () => openGamePage(
                             context,
+                            menuLightText,
                             snapshot.data["light"],
                           ),
                         ),
@@ -112,6 +118,7 @@ class _MenuState extends State<Menu> {
                           child: Text(menuMediumText),
                           onPressed: () => openGamePage(
                             context,
+                            menuMediumText,
                             snapshot.data["medium"],
                           ),
                         ),
@@ -122,6 +129,7 @@ class _MenuState extends State<Menu> {
                           child: Text(menuHeavyText),
                           onPressed: () => openGamePage(
                             context,
+                            menuHeavyText,
                             snapshot.data["heavy"],
                           ),
                         )

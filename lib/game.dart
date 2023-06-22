@@ -5,8 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Game extends StatefulWidget {
-  const Game({super.key, required this.questions});
+  const Game({
+    super.key,
+    this.gameName = "",
+    required this.questions,
+  });
 
+  final String gameName;
   final List<dynamic> questions;
 
   @override
@@ -42,43 +47,55 @@ class _GameState extends State<Game> {
             ],
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Flexible(
-                flex: 7,
-                child: GestureDetector(
-                  onTapDown: (details) {
-                    print(details.localPosition);
-                  },
-                  child: AppinioSwiper(
-                    controller: controller,
-                    cardsCount: widget.questions.length,
-                    allowUnswipe: true,
-                    unlimitedUnswipe: true,
-                    cardsBuilder: (context, index) {
-                      return Align(
-                        alignment: Alignment.center,
-                        child: Card(
-                          mainText: widget.questions[index],
-                          cardColor: colors[index % colors.length],
-                          primaryTextColor: Colors.black,
-                          secondaryTextColor: Colors.black54,
-                          upperText:
-                              AppLocalizations.of(context)!.gameCardUpperText,
-                          bottonText: "${index + 1}/${widget.questions.length}",
-                          previous: index > 0 ? controller.unswipe : null,
-                        ),
-                      );
-                    },
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: AutoSizeText(
+                  widget.gameName,
+                  minFontSize: 10,
+                  maxFontSize: 30,
+                  wrapWords: false,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
-                )),
-            Flexible(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                ),
+              ),
+              Expanded(
+                flex: 15,
+                child: AppinioSwiper(
+                  controller: controller,
+                  cardsCount: widget.questions.length,
+                  allowUnswipe: true,
+                  unlimitedUnswipe: true,
+                  cardsBuilder: (context, index) {
+                    return Align(
+                      alignment: Alignment.center,
+                      child: Card(
+                        mainText: widget.questions[index],
+                        cardColor: colors[index % colors.length],
+                        primaryTextColor: Colors.black,
+                        secondaryTextColor: Colors.black54,
+                        upperText:
+                            AppLocalizations.of(context)!.gameCardUpperText,
+                        bottonText: "${index + 1}/${widget.questions.length}",
+                        previous: index > 0 ? controller.unswipe : null,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Expanded(
+                flex: 1,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     SizedBox(
                       width: 100,
@@ -90,8 +107,8 @@ class _GameState extends State<Game> {
                   ],
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
