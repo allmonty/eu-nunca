@@ -99,7 +99,7 @@ class _MenuState extends State<Menu> {
                           height: 20,
                         ),
                         Button(
-                          text: menuLightText,
+                          child: Text(menuLightText),
                           onPressed: () => openGamePage(
                             context,
                             snapshot.data["light"],
@@ -109,7 +109,7 @@ class _MenuState extends State<Menu> {
                           height: 10,
                         ),
                         Button(
-                          text: menuMediumText,
+                          child: Text(menuMediumText),
                           onPressed: () => openGamePage(
                             context,
                             snapshot.data["medium"],
@@ -119,7 +119,7 @@ class _MenuState extends State<Menu> {
                           height: 10,
                         ),
                         Button(
-                          text: menuHeavyText,
+                          child: Text(menuHeavyText),
                           onPressed: () => openGamePage(
                             context,
                             snapshot.data["heavy"],

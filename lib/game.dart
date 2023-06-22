@@ -47,53 +47,48 @@ class _GameState extends State<Game> {
           children: [
             Flexible(
                 flex: 7,
-                child: AppinioSwiper(
-                  controller: controller,
-                  cardsCount: widget.questions.length,
-                  allowUnswipe: true,
-                  unlimitedUnswipe: true,
-                  cardsBuilder: (context, index) {
-                    return Align(
-                      alignment: Alignment.center,
-                      child: Card(
-                        mainText: widget.questions[index],
-                        // cardColor: colors[index % colors.length],
-                        cardColor: Colors.black,
-                        primaryTextColor: Colors.white,
-                        secondaryTextColor: Colors.white54,
-                        upperText:
-                            AppLocalizations.of(context)!.gameCardUpperText,
-                        bottonText: "${index + 1}/${widget.questions.length}",
-                      ),
-                    );
+                child: GestureDetector(
+                  onTapDown: (details) {
+                    print(details.localPosition);
                   },
+                  child: AppinioSwiper(
+                    controller: controller,
+                    cardsCount: widget.questions.length,
+                    allowUnswipe: true,
+                    unlimitedUnswipe: true,
+                    cardsBuilder: (context, index) {
+                      return Align(
+                        alignment: Alignment.center,
+                        child: Card(
+                          mainText: widget.questions[index],
+                          cardColor: colors[index % colors.length],
+                          primaryTextColor: Colors.black,
+                          secondaryTextColor: Colors.black54,
+                          upperText:
+                              AppLocalizations.of(context)!.gameCardUpperText,
+                          bottonText: "${index + 1}/${widget.questions.length}",
+                          previous: index > 0 ? controller.unswipe : null,
+                        ),
+                      );
+                    },
+                  ),
                 )),
             Flexible(
               flex: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Button(
-                    onPressed: () => Navigator.pop(context),
-                    text: "Menu",
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Button(
-                    onPressed: controller.unswipe,
-                    text: "Anterior",
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Button(
-                    onPressed: controller.swipeRight,
-                    text: "Próxima",
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: Button(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Icon(Icons.home),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           ],
@@ -112,6 +107,7 @@ class Card extends StatelessWidget {
     this.primaryTextColor = const Color.fromARGB(255, 0, 0, 0),
     this.secondaryTextColor = const Color.fromARGB(255, 0, 255, 0),
     this.cardColor = const Color.fromARGB(255, 255, 255, 255),
+    this.previous,
   });
 
   final String mainText;
@@ -120,6 +116,7 @@ class Card extends StatelessWidget {
   final Color primaryTextColor;
   final Color secondaryTextColor;
   final Color cardColor;
+  final VoidCallback? previous;
 
   @override
   Widget build(BuildContext context) {
@@ -172,20 +169,34 @@ class Card extends StatelessWidget {
             ),
             Expanded(
               flex: 1,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: AutoSizeText(
-                  bottonText,
-                  minFontSize: 10,
-                  maxFontSize: 30,
-                  wrapWords: false,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 40,
-                    color: secondaryTextColor,
-                    fontWeight: FontWeight.bold,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Visibility(
+                    visible: previous != null ? true : false,
+                    child: IconButton(
+                      iconSize: 40,
+                      onPressed: previous,
+                      icon: Icon(
+                        Icons.refresh,
+                        color: secondaryTextColor,
+                      ),
+                    ),
                   ),
-                ),
+                  AutoSizeText(
+                    bottonText,
+                    minFontSize: 10,
+                    maxFontSize: 30,
+                    wrapWords: false,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: secondaryTextColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
